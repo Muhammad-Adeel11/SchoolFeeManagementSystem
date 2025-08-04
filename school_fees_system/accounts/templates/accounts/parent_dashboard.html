@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Parent Dashboard</h2>
+ {% comment %} this must be solver {% endcomment %}
+{% comment %} <a href="{% url 'make_payment' %}" class="btn btn-primary">Make Payment</a> {% endcomment %}
+
+<h4 class="mt-4">My Payments</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Method</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for payment in payments %}
+        <tr>
+            <td>${{ payment.amount_paid }}</td>
+            <td>{{ payment.payment_date }}</td>
+            <td>{{ payment.payment_method }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">No payments made yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="container mt-5">
+    <h4 class="mt-4">Total Paid: <span class="text-success">${{ total_paid }}</span></h4>
+</div>
+<div class="container mt-5">
+
+    <h2 class="mb-4">Welcome, {{ request.user.full_name }}!</h2>
+
+    <div class="row">
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm p-3 rounded-4">
+                <h4>Pay Your Fees</h4>
+                <p>Submit your school fees easily.</p>
+                <a href="{% url 'pay_fees' %}" class="btn btn-primary">Pay Fees</a>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm p-3 rounded-4">
+                <h4>Fee Payment Status</h4>
+                <p>Check your previous payments and statuses.</p>
+                <a href="{% url 'fee_status' %}" class="btn btn-info">View Status</a>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm p-3 rounded-4">
+                <h4>Payment Receipts</h4>
+                <p>Download your receipts anytime.</p>
+                <a href="{% url 'receipt' %}" class="btn btn-success">Download Receipt</a>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm p-3 rounded-4">
+                <h4>Notifications</h4>
+                <p>Check any messages or reminders from the school.</p>
+                <a href="{% url 'notification_list' %}" class="btn btn-warning">View Notifications</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}

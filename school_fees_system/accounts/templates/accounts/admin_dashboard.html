@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card bg-success text-white mb-4">
+            <div class="card-body">
+                Total Revenue: ${{ total_revenue }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-primary text-white mb-4">
+            <div class="card-body">
+                Total Payments: {{ total_payments }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-warning text-dark mb-4">
+            <div class="card-body">
+                Fee Structures: {{ total_fee_structures }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="{% url 'fee_structure_list' %}" class="btn btn-info">Manage Fee Structures</a>
+<a href="{% url 'all_payments' %}" class="btn btn-success">View All Payments</a> 
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">Welcome Admin, {{ request.user.full_name }}!</h2>
+
+    <div class="row">
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm p-3 rounded-4">
+                <h4>Manage Fee Structures</h4>
+                <p>Create, update, and delete fee structures.</p>
+                <a href="{% url 'fee_structure_list' %}" class="btn btn-primary">Manage Fees</a>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm p-3 rounded-4">
+                <h4>Send Notifications</h4>
+                <p>Send manual payment reminders or announcements.</p>
+                <a href="{% url 'send_manual_notification' %}" class="btn btn-warning">Send Notification</a>
+                {% comment %} <a href="{% url 'notification' %}" class="btn btn-warning">Send Notification</a> {% endcomment %}
+
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm p-3 rounded-4">
+                <h4>View All Payments</h4>
+                <p>View all parents' payment records.</p>
+                {% comment %} <a href="{% url 'all_payments_report' %}" class="btn btn-info">View Payments</a> {% endcomment %}
+                <a href="{% url 'all_payments' %}" class="btn btn-info">View Payments</a>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm p-3 rounded-4">
+                <h4>Download Payment Reports</h4>
+                <p>Generate and download reports in PDF format.</p>
+                <a href="{% url 'export_payments_csv' %}" class="btn btn-success mt-2">Download CSV</a>
+                <a href="{% url 'export_payments_pdf' %}" class="btn btn-danger mt-2">Download PDF</a>
+                {% comment %} <a href="{% url 'generate_payment_report' %}" class="btn btn-success">Download Reports</a> {% endcomment %}
+                {% comment %} <a href="{% url 'download_receipt_pdf' payment_id=payment.id %}" class="btn btn-success">Download Reports</a> {% endcomment %}
+                <a href="{% url 'receipt' %}" class="btn btn-success mt-2">See Reports</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container mt-5">
+
+    <div class="row text-center mt-4">
+        <div class="col-md-4">
+            <div class="card p-3 shadow">
+                <h5>Total Parents</h5>
+                <h3>{{ total_parents }}</h3>
+            </div>
+        </div>
+        {% comment %} <div class="col-md-4">
+            <div class="card p-3 shadow">
+                <h5>Total Fees Collected</h5>
+                <h3>${{ total_fees_collected }}</h3>
+            </div>
+        </div> {% endcomment %}
+        {% comment %} <div class="col-md-4">
+            <div class="card p-3 shadow">
+                <h5>Send Notification</h5>
+                <a href="{% url 'send_notification' %}" class="btn btn-warning mt-2">Send</a>
+            </div>
+        </div>
+    </div> {% endcomment %}
+
+    <div class="mt-5">
+        <h4>Payment Methods Distribution</h4>
+        <canvas id="paymentChart"></canvas>
+    </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('paymentChart').getContext('2d');
+    var paymentChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [{% for method in payment_methods %}'{{ method.payment_method }}',{% endfor %}],
+            datasets: [{
+                label: 'Payments',
+                data: [{% for method in payment_methods %}{{ method.total }},{% endfor %}],
+                backgroundColor: [
+                    '#3498db',
+                    '#2ecc71',
+                    '#e74c3c',
+                    '#f39c12',
+                    '#8e44ad'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+</script>
+
+{% endblock %}

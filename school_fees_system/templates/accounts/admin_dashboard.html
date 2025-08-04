@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card bg-success text-white mb-4">
+            <div class="card-body">
+                Total Revenue: ${{ total_revenue }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-primary text-white mb-4">
+            <div class="card-body">
+                Total Payments: {{ total_payments }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-warning text-dark mb-4">
+            <div class="card-body">
+                Total Fee Structures: {{ total_fee_structures }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="{% url 'fee_structure_list' %}" class="btn btn-outline-info">Manage Fee Structures</a>
+<a href="{% url 'all_payments' %}" class="btn btn-outline-success">View All Payments</a>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2>Payment Successful 🎉</h2>
+    <p>Thank you for your payment!</p>
+    <a href="{% url 'parent_dashboard' %}" class="btn btn-success">Back to Dashboard</a>
+</div>
+{% endblock %}

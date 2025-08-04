@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .details {
+            margin-top: 30px;
+        }
+        .details p {
+            margin: 5px 0;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+        .amount {
+            font-size: 22px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>School Payment Receipt</h1>
+        <p><strong>Receipt ID:</strong> {{ payment.id }}</p>
+    </div>
+
+    <div class="details">
+        <p><strong>Parent Name:</strong> {{ payment.parent.username }}</p>
+        <p><strong>Email:</strong> {{ payment.parent.email }}</p>
+        <p><strong>Payment Method:</strong> {{ payment.payment_method }}</p>
+        <p><strong>Amount Paid:</strong> <span class="amount">${{ payment.amount_paid }}</span></p>
+        <p><strong>Payment Date:</strong> {{ payment.payment_date|date:"M d, Y H:i" }}</p>
+    </div>
+
+    <div class="footer">
+        <p>Thank you for your payment.</p>
+        <p>School Fees Management System</p>
+    </div>
+</body>
+</html>

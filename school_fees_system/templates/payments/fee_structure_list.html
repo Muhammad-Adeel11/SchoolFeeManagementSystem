@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Manage Fee Structures</h2>
+<a href="{% url 'fee_structure_create' %}" class="btn btn-success">Add New Fee Structure</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Due Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for structure in structures %}
+        <tr>
+            <td>{{ structure.fee_type }}</td>
+            <td>{{ structure.amount }}</td>
+            <td>{{ structure.due_date }}</td>
+            <td>
+                <a href="{% url 'fee_structure_update' structure.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                <a href="{% url 'fee_structure_delete' structure.pk %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No Fee Structures Found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Fee Status</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Fee Type</th>
+            <th>Amount</th>
+            <th>Due Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fee in fees %}
+        <tr>
+            <td>{{ fee.fee_type }}</td>
+            <td>${{ fee.amount }}</td>
+            <td>{{ fee.due_date }}</td>
+            <td>
+                {% if fee.is_paid %}
+                    <span class="badge bg-success">Paid</span>
+                {% else %}
+                    <span class="badge bg-danger">Pending</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No fee records available.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'parent_dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+{% endblock %}

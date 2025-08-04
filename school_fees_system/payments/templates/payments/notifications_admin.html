@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>All Notifications Sent</h2>
+    <a href="{% url 'send_manual_notification' %}" class="btn btn-success mb-3">Send New Notification</a>
+    <ul class="list-group">
+        {% for notification in notifications %}
+            <li class="list-group-item">
+                <h5>{{ notification.title }} - <small>{{ notification.parent.full_name }}</small></h5>
+                <p>{{ notification.message }}</p>
+                <small>{{ notification.created_at|date:"M d, Y H:i" }}</small>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No notifications sent yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'admin_dashboard' %}" class="btn btn-success">Back to Dashboard</a>
+</div>
+{% endblock %}

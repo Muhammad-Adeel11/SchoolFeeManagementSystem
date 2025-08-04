@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Pay Fees</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="fee_type" class="form-label">Select Fee Type</label>
+        <select name="fee_type" class="form-select" required>
+            {% for fee in fee_structures %}
+                <option value="{{ fee.id }}">{{ fee.fee_type }} - ${{ fee.amount }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="payment_method" class="form-label">Payment Method</label>
+        <select name="payment_method" class="form-select" required>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Payment</button>
+</form>
+
+<a href="{% url 'parent_dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+{% endblock %}

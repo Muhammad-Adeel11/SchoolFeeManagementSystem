@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{% if form.instance.pk %}Edit Fee{% else %}Add New Fee{% endif %}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+
+<a href="{% url 'fee_structure_list' %}" class="btn btn-secondary mt-2">Back</a>
+{% endblock %}
+
+{% comment %} {% extends 'base.html' %}
+{% block content %}
+<h2>Create / Update Fee Structure</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+{% endblock %} {% endcomment %}
+

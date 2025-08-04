@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Payment Receipt</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 20px; }
+        .receipt-box { background: white; padding: 30px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); }
+        h2 { color: #4CAF50; }
+        p { font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="receipt-box">
+        <h2>Payment Successful!</h2>
+        <p><strong>Amount Paid:</strong> ${{ amount }}</p>
+        <p><strong>Payment Date:</strong> {{ payment_date }}</p>
+        <p><strong>Payment Method:</strong> {{ method }}</p>
+        <br>
+        <p>Thank you for your payment.</p>
+        <p>Regards,<br>School Management</p>
+    </div>
+</body>
+</html>
